@@ -8,6 +8,7 @@ export default function Home() {
   const [goalColor, setGoalColor] = useState<any>();
   const [lvl, setLvl] = useState(1);
   const [hexHelper, setHexHelper] = useState<string>();
+  const [toggler, setToggler] = useState<boolean>(false);
 
   const handleColorChange = (newColor: any) => {
     setColor(newColor.hsl);
@@ -39,6 +40,7 @@ export default function Home() {
 
       if (colorcomp == goalColorcomp) {
         win();
+        setToggler(false);
       }
     }
   }, [color]);
@@ -119,7 +121,10 @@ export default function Home() {
 
         <div className="flex flex-col justify-center items-center gap-y-2">
           <div className="text-white">Yours</div>
-          <div className="p-1 bg-white rounded-sm shadow-[0_0_0_1px_rgba(0,0,0,.1)]">
+          <div
+            className="p-1 bg-white rounded-sm shadow-[0_0_0_1px_rgba(0,0,0,.1)] cursor-pointer"
+            onClick={() => setToggler(true)}
+          >
             {color && (
               <div
                 className="w-28 aspect-square rounded-sm"
@@ -134,7 +139,7 @@ export default function Home() {
         </div>
         <div>
           <div>
-            {color && (
+            {color && toggler && (
               <SketchPicker
                 color={color}
                 onChange={handleColorChange}
